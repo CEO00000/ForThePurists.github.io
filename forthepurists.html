@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Landing Page</title>
+  <!-- Load Cinzel Decorative font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap" rel="stylesheet">
+  <style>
+    /* Basic reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: 'Cinzel Decorative', cursive;
+    }
+    /* VIDEO WRAPPER: Container for replicated video elements */
+    .video-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .video-container {
+      position: absolute;
+      top: 0;
+      left: -33.33%; /* Shift to center the middle video */
+      width: 300%;
+      height: 100%;
+      display: flex;
+    }
+    .bg-video {
+      width: 33.33%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    /* For mobile: use a single video that fills the container */
+    @media (max-width: 767px) {
+      .video-container {
+        left: 0;
+        width: 100%;
+      }
+      .bg-video {
+        width: 100%;
+      }
+    }
+    /* Main content styling */
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+      color: white;
+    }
+    /* Adjusted heading size */
+    .heading {
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+    /* Button styling */
+    .btn {
+      padding: 15px 30px;
+      border: 2px solid white;
+      background: transparent;
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .btn:hover {
+      background: white;
+      color: black;
+    }
+    /* Logos container */
+    .logos {
+      position: absolute;
+      bottom: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 60px; /* Increased space between logos */
+      width: 100%;
+    }
+    /* Reduce logos by another 50% (if they were 25px, now 12.5px) */
+    .logos img {
+      height: 12.5px;
+      object-fit: contain;
+    }
+    /* Increase the third logo size by 250% */
+    .logo-third {
+      transform: scale(2.5);
+      transform-origin: center;
+    }
+    /* Counter styling */
+    .counter {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Video Section -->
+  <div class="video-wrapper">
+    <div class="video-container">
+      <video class="bg-video" autoplay muted loop playsinline>
+        <source src="copy-D09A9EBC-8E14-4FC1-B8F6-B2C4FD5FB214.mp4" type="video/mp4">
+      </video>
+      <video class="bg-video" autoplay muted loop playsinline>
+        <source src="copy-D09A9EBC-8E14-4FC1-B8F6-B2C4FD5FB214.mp4" type="video/mp4">
+      </video>
+      <video class="bg-video" autoplay muted loop playsinline>
+        <source src="copy-D09A9EBC-8E14-4FC1-B8F6-B2C4FD5FB214.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <!-- Counter for tracking button clicks -->
+  <div class="counter" id="entryCounter">
+    Admission Requests Received: 0
+  </div>
+
+  <!-- Main Content Section -->
+  <div class="content">
+    <div class="heading">click here</div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeqafefyAcjISprjVxJ-uD_yWv5ox44MT5vhzMWkoClaOc7-g/viewform?usp=dialog" class="btn" id="admissionButton">admission request</a>
+  </div>
+
+  <!-- Logos for the three companies -->
+  <div class="logos">
+    <img src="AmaPiano-Forecast-OG-Logo.png" alt="Company Logo 1">
+    <img src="ARTISTRY-LOGO-CREAM.png" alt="Company Logo 2">
+    <img src="Black-Brick-Logo-White.png" alt="Company Logo 3" class="logo-third">
+  </div>
+
+  <!-- JavaScript to track button clicks -->
+  <script>
+    // Using localStorage to persist the click count per device.
+    let clickCount = localStorage.getItem('clickCount') ? parseInt(localStorage.getItem('clickCount')) : 0;
+    
+    function updateCounter() {
+      document.getElementById('entryCounter').innerText = 'Admission Requests Received: ' + clickCount;
+    }
+    
+    // Initialize the counter on page load.
+    updateCounter();
+    
+    // Increment the counter on button click and redirect.
+    document.getElementById('admissionButton').addEventListener('click', function(e) {
+      e.preventDefault(); // Prevent immediate redirection.
+      clickCount++;
+      localStorage.setItem('clickCount', clickCount);
+      updateCounter();
+      // Redirect to your Google Docs registration form.
+      window.location.href = this.href;
+    });
+  </script>
+</body>
+</html>
